@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['hospital-appointment-system-i3lr.onrender.com', 'localhost']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 CSRF_TRUSTED_ORIGINS = ['https://hospital-appointment-system-i3lr.onrender.com']
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+STATICFILES_DIRS = [BASE_DIR / 'app' / 'static']
 
 
 
@@ -122,7 +125,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# URL to use when referring to static files (where they will be served from)
+STATIC_URL = '/static/'
+
+# Directory where `collectstatic` will collect static files for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Additional locations the staticfiles app will traverse
 STATICFILES_DIRS = [
     BASE_DIR / 'app' / 'static',
 ]
