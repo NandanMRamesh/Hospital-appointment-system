@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Book Appointment{% endblock %}
+{% block content %}
+<h2>Book an Appointment</h2>
+<form method="post" id="booking-form">{% csrf_token %}
+  <div class="mb-3">
+    <label for="id_doctor">Doctor</label>
+    <select id="id_doctor" name="doctor" class="form-select">
+      <option value="">Select doctor</option>
+      {% for d in doctors %}
+      <option value="{{ d.id }}">Dr. {{ d.user.get_full_name }} ({{ d.specialization }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="id_date">Date</label>
+    <input type="date" id="id_date" name="date" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label>Available time slots</label>
+    <div id="slots" class="d-flex gap-2 flex-wrap"></div>
+    <input type="hidden" name="time" id="id_time">
+  </div>
+  <div class="mb-3">
+    <label for="id_reason">Reason (optional)</label>
+    <textarea id="id_reason" name="reason" class="form-control"></textarea>
+  </div>
+  <button class="btn btn-primary" type="submit">Book</button>
+</form>
+
+<script>
+function fetchSlots(){
+  const doctorId = document.getElementById('id_doctor').value;
+  const date = document.getElementById('id_date').value;
+  const slotsDiv = document.getElementById('slots');
+  slotsDiv.innerHTML = 'Loading...';
+  if(!doctorId || !date){ slotsDiv.innerHTML = ''; return; }
+  fetch(`/ajax/available_slots/?doctor_id=${doctorId}&date=${date}`)
+    .then(r => r.json())
+    .then(data => {
+      slotsDiv.innerHTML = '';
+      if(data.slots && data.slots.length){
+        data.slots.forEach(s => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn btn-outline-secondary btn-sm slot-btn';
+          btn.innerText = s;
+          btn.onclick = () => {
+            document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('id_time').value = s+":00";
+          };
+          slotsDiv.appendChild(btn);
+        });
+      } else {
+        slotsDiv.innerHTML = '<div class="text-muted">No slots available</div>';
+      }
+    })
+    .catch(()=>{ slotsDiv.innerHTML = '<div class="text-danger">Error loading slots</div>'; });
+}
+
+document.getElementById('id_doctor').addEventListener('change', fetchSlots);
+document.getElementById('id_date').addEventListener('change', fetchSlots);
+
+// ensure time is set before submit
+document.getElementById('booking-form').addEventListener('submit', function(e){
+  const time = document.getElementById('id_time').value;
+  if(!time){ e.preventDefault(); alert('Please select a time slot'); }
+});
+</script>
+{% endblock %}

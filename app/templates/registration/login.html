@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2>Login</h2>
+
+    <ul class="nav nav-tabs" id="roleTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="patient-tab" data-bs-toggle="tab" data-bs-target="#patient" type="button" role="tab">Patient</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="doctor-tab" data-bs-toggle="tab" data-bs-target="#doctor" type="button" role="tab">Doctor</button>
+      </li>
+    </ul>
+
+    <div class="tab-content p-3 border border-top-0">
+      <div class="tab-pane fade show active" id="patient" role="tabpanel" aria-labelledby="patient-tab">
+        <p>Patients: register or login to manage your appointments.</p>
+      </div>
+      <div class="tab-pane fade" id="doctor" role="tabpanel" aria-labelledby="doctor-tab">
+        <p>Doctors: log in to view your schedule. If you don't have an account, ask admin to create one.</p>
+      </div>
+    </div>
+
+    <form method="post" class="mt-3">{% csrf_token %}
+      <input type="hidden" name="role" id="id_role" value="patient">
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" id="id_username">
+      </div>
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="id_password">
+      </div>
+      <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <hr>
+    <p>Not a patient yet? <a href="{% url 'register_patient' %}">Register as a patient</a></p>
+  </div>
+</div>
+
+<script>
+// keep the hidden role input in sync with selected tab (visual only)
+document.addEventListener('DOMContentLoaded', function(){
+  const roleInput = document.getElementById('id_role');
+  const patientTab = document.getElementById('patient-tab');
+  const doctorTab = document.getElementById('doctor-tab');
+  patientTab.addEventListener('click', ()=> roleInput.value='patient');
+  doctorTab.addEventListener('click', ()=> roleInput.value='doctor');
+});
+</script>
+{% endblock %}

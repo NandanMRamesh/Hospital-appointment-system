@@ -1,0 +1,56 @@
+<!-- Home page for Hospital Appointment Tracking System.
+Simple, responsive design using Bootstrap.
+Navigation bar with Home, Book Appointment, and Doctor Login.
+Show brief description and buttons linking to main features. -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Hospital{% endblock %}
+
+{% block content %}
+<div class="hero mb-4">
+  <div class="hero-copy">
+    <h1>Hospital Appointment System</h1>
+    <p class="lead">Book appointments quickly with available doctors. Manage your upcoming visits and stay informed.</p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="{% url 'book_appointment' %}">Book Appointment</a>
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'login' %}">Login</a>
+    </p>
+  </div>
+  <div class="hero-media">
+    <img src="{% static 'images/placeholder-hero.png' %}" alt="Hero placeholder">
+  </div>
+  
+</div>
+
+<div class="quick-cards">
+  <div class="quick-card">
+    <img src="{% static 'images/placeholder-doctor.png' %}" alt="doctor">
+    <div>
+      <h5>Find doctors</h5>
+      <p class="mb-0 text-muted">Browse available specialists and choose a convenient time.</p>
+    </div>
+  </div>
+
+  <div class="quick-card">
+    <img src="{% static 'images/placeholder-doctor.png' %}" alt="appointment">
+    <div>
+      <h5>Book appointments</h5>
+      <p class="mb-0 text-muted">Select a doctor, pick a date and choose from available slots.</p>
+    </div>
+  </div>
+
+  <div class="quick-card">
+    <img src="{% static 'images/placeholder-doctor.png' %}" alt="dashboard">
+    <div>
+      <h5>Manage visits</h5>
+      <p class="mb-0 text-muted">View your upcoming visits and mark them completed if you are a doctor.</p>
+    </div>
+  </div>
+</div>
+
+<div class="site-footer text-center">
+  <small>Hospital Appointment System</small>
+</div>
+
+{% endblock %}
