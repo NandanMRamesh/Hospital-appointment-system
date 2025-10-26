@@ -26,11 +26,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-key-change-me')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['hospital-appointment.onrender.com']
+ALLOWED_HOSTS = ['hospital-appointment-system-i3lr.onrender.com', 'localhost']
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
-CSRF_TRUSTED_ORIGINS = ['https://hospital-appointment.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://hospital-appointment-system-i3lr.onrender.com']
+
 
 
 
