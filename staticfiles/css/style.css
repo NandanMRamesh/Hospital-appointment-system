@@ -1,0 +1,44 @@
+/* App custom styles - modify as needed
+	 - Place additional styles here or create new files under app/static/css/
+	 - To test changes, refresh the browser and clear cache if needed
+*/
+
+:root{
+	--brand: #0d6efd;
+	--muted: #6c757d;
+}
+
+body { background: #f8f9fa; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+/* Hero */
+.hero {
+	background: linear-gradient(90deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
+	border-radius: .5rem;
+	padding: 2rem;
+	display:flex;
+	gap: 1.5rem;
+	align-items:center;
+}
+.hero img { max-width: 320px; width: 40%; height: auto; }
+.hero .hero-copy { width: 60%; }
+.hero h1 { font-weight:700; margin-bottom:.5rem; }
+.hero p.lead { color: var(--muted); }
+
+/* Quick cards */
+.quick-cards { display:grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap:1rem; margin-top:1rem; }
+.quick-card { background:white; padding:1rem; border-radius:.5rem; box-shadow: 0 6px 18px rgba(16,24,40,0.04); display:flex; gap:1rem; align-items:center; }
+.quick-card img { width:48px; height:48px; object-fit:cover; border-radius:.375rem; }
+.quick-card h5{ margin:0; }
+
+/* Slot button */
+.slot-btn { cursor:pointer; }
+.slot-btn.active { background-color: var(--brand); color: white; }
+
+/* Footer */
+.site-footer { margin-top:3rem; padding:2rem 0; color:var(--muted); font-size:.9rem; }
+
+/* Small screens */
+@media (max-width:768px){
+	.hero { flex-direction:column; }
+	.hero img { width:100%; }
+}
